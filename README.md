@@ -24,7 +24,7 @@ noisy = smooth + noise * (np.random.rand(len(xvals)) - 0.5)
 
 which is shown visually in the figure below
 
-![The synthetic data](data.svg)
+![The synthetic data](data.png)
 
 ## More
 
