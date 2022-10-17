@@ -23,7 +23,7 @@ if plotit:
     plt.ylabel('output')
     plt.xlim([0, 1])
     plt.title('The two datasets')
+    plt.savefig('data.svg', bbox_inches = 'tight')
     plt.show()
-    plt.savefig('data.png', bbox_inches = 'tight')
 
 sys.exit(0)
