@@ -12,7 +12,7 @@ To run the examples in this repository, python3 is needed, along with the follow
 
 ## The synthetic data
 
-The synthetic data is generated using the python script [generate_data.py] using:
+Two sets of synthetic data - "smooth" and "noisy" - are generated using the python script [generate_data.py](generate_data.py):
 
 ```
 ep = 0.01
