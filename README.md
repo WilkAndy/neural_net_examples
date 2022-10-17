@@ -30,9 +30,20 @@ The "noisy" output is generated using `np.random`, which means if you regenerate
 
 Note that the input and the outputs are already scaled to lie approximately between 0 and 1, so no scaling is needed.  In real-world datasets, scaling the inputs and outputs to lies between 0 and 1 is important, as it helps the algorithm converge.
 
-Most real-world datasets will have multiple inputs instead of just 1, but the general features of neural networks are likely to hold true.
+Most real-world datasets will have multiple inputs instead of just 1, but the general features of neural networks described here are likely to hold true.
 
-## More
+## Validation
+
+An important aspect, possibly the most important aspect, of machine learning, is validation of the trained model against data.  Validation allows the data analyst to quantify the goodness of the trained model.  The most common practice is to "hold back" a subset of the data.  The held-back data is called the validation set, and it is not used to train the model.  After model selection (eg, choosing the best neural network architecture), the final trained model is evaluated on the validation set.
+
+Carefully defining the validation set is very important.  For instance, if extrapolation away from the boundary of existing inputs is important (eg, if extrapolation to $x > 1$ is important in the case studied here) then the validation set would likely contain all the points close to the boundary (for instance, all points with $x > 0.9$).  It is vital to carefully consider the purpose of the machine learning, and define the validation set appropriately.
+
+In this example, no validation set is used, because the purpose of this repository is simply to illustrate the impact of the neural network architecture on the data fit.
+
+
+
+
+
 
 
 
