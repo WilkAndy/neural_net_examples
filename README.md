@@ -92,6 +92,15 @@ The results displayed below demonstrate that:
 ![W=16, d=0, D=12](result_16_0.0_12.png)
 
 
+## Results for $d>0$
+
+Notice the $(W, D) = (16, 12)$ result conforms to the noisy data.  If this is undesired, a small dropout, such as $d = 0.001$ can be used:
+
+![W=16, d=0.001, D=12](result_16_0.001_12.png)
+
+
+
+
 
 
 
