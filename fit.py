@@ -9,7 +9,7 @@ width = 10
 d_o = 0.0
 depth = 5
 
-version = 8
+version = 11
 if version == 1:
     width = 1
     d_o = 0.0
@@ -37,15 +37,23 @@ elif version == 6:
 elif version == 7:
     width = 1
     d_o = 0.0
-    depth = 16
+    depth = 12
 elif version == 8:
     width = 4
     d_o = 0.0
-    depth = 6
+    depth = 12
 elif version == 9:
     width = 16
     d_o = 0.0
-    depth = 16
+    depth = 12
+elif version == 10:
+    width = 16
+    d_o = 0.1
+    depth = 12
+elif version == 11:
+    width = 16
+    d_o = 1E-3
+    depth = 12
 
 
 # dnn_models = [(1, 0)] is essentially a linear-regression model.  There are len(covariates) + 1 + 2 * len(y_names) parameters.  These are the len(covariates) coefficients of the covariates, plus 1 intercept, in the first layer.  The 2 * len(y_names) are the scale and intercepts of the last layer.  Obviously many of these are redundant, but I keep them all to conform to the standard architecture used here
@@ -60,6 +68,8 @@ from keras.models import Sequential
 from keras.layers import Dense
 from keras.layers import Dropout
 from keras.callbacks import EarlyStopping
+from keras.callbacks import Callback
+
 
 if depth < 1:
     sys.stderr.write("depth needs to be positive")
@@ -67,6 +77,12 @@ if depth < 1:
 
 data = pd.read_csv('data.csv')
 X = data.loc[:, covariates]
+
+# stop training when loss is 1E-5, to speed up training
+class stopAtLossValue(Callback):
+    def on_batch_end(self, batch, logs={}):
+        if logs.get('loss') <= 1E-5:
+            self.model.stop_training = True
 
 fig, axs = plt.subplots(1, len(y_names), sharex = True, sharey = True, figsize = (7.5, 3))
 
@@ -87,7 +103,7 @@ for ind in range(len(y_names)):
     model.compile(loss = 'mean_squared_error', optimizer = 'adam')
     model.summary()
 
-    history = model.fit(X, y, epochs = epochs, batch_size = batch_size, verbose = 1, callbacks = [EarlyStopping(monitor = 'loss', mode = 'min', patience = patience, restore_best_weights = True)])
+    history = model.fit(X, y, epochs = epochs, batch_size = batch_size, verbose = 1, callbacks = [stopAtLossValue(), EarlyStopping(monitor = 'loss', mode = 'min', patience = patience, restore_best_weights = True)])
 
     a = axs[ind]
     a.plot(X[covariates[0]], y, 'k-', label = 'data')
@@ -101,8 +117,8 @@ handles, labels = a.get_legend_handles_labels()
 fig.legend(handles, labels, loc = 'upper right')
 fig.text(0.5, 0.04, 'x', ha = 'center', va = 'center')
 fig.text(0.06, 0.5, 'Output', ha = 'center', va = 'center', rotation = 'vertical')
-plt.suptitle('W=' + str(width) + ', d=' + str(round(d_o, 1)) + ', D=' + str(depth))
-plt.savefig('result_' + str(width) + '_' + str(round(d_o, 1)) + '_' + str(depth) + '.png', bbox_inches = 'tight')
+plt.suptitle('W=' + str(width) + ', d=' + str(round(d_o, 3)) + ', D=' + str(depth))
+plt.savefig('result_' + str(width) + '_' + str(round(d_o, 3)) + '_' + str(depth) + '.png', bbox_inches = 'tight')
 plt.show()
 plt.close()
 

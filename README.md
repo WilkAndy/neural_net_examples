@@ -53,7 +53,27 @@ The architectures considered here are shown in the figure below.  The neural net
 
 ![Architectures considered](architectures.png)
 
+These types of models are easily built using `keras`, with code along the lines of:
+
+```
+model = Sequential()
+model.add(Dense(W, kernel_initializer = 'normal', activation = 'linear', input_shape = (1,)))
+model.add(Dropout(d))
+model.add(Dense(W, kernel_initializer = 'normal', activation = 'elu'))
+model.add(Dropout(d))
+model.add(Dense(1, kernel_initializer = 'normal', activation = 'linear'))
+model.compile(loss = 'mean_squared_error', optimizer = 'adam')
+```
+
+The code [fit.py](fit.py) performs the training and plotting of the results.
+
 ## Results for $d=0$
+
+The results displayed below demonstrate that:
+
+- when $D = 1$, the neural network mimics a linear regression, by design;
+- when increasing $W$ or $D$, more nonlinearities can be accommodated;
+- mostly, the gradient descent algorithm, converges to a reasonable result, but sometimes it appears to fail.
 
 ![W=1, d=0, D=1](result_1_0.0_1.png)
 
@@ -64,6 +84,12 @@ The architectures considered here are shown in the figure below.  The neural net
 ![W=4, d=0, D=4](result_4_0.0_4.png)
 
 ![W=16, d=0, D=4](result_16_0.0_4.png)
+
+![W=1, d=0, D=12](result_1_0.0_12.png)
+
+![W=4, d=0, D=12](result_4_0.0_12.png)
+
+![W=16, d=0, D=12](result_16_0.0_12.png)
 
 
 
