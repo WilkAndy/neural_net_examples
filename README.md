@@ -38,11 +38,28 @@ Most real-world datasets will have multiple inputs instead of just 1, but the ge
 
 An important aspect, possibly the most important aspect, of machine learning, is validation of the trained model against data.  Validation allows the data analyst to quantify the goodness of the trained model.  The most common practice is to "hold back" a subset of the data.  The held-back data is called the validation set, and it is not used to train the model.  After model selection (e.g., choosing the best neural network architecture) the final trained model is evaluated on the validation set.
 
-Carefully defining the validation set is very important.  For instance, if extrapolation away from the boundary of existing inputs is important (eg, if extrapolation to $x > 1$ is important in the case studied here) then the validation set would likely contain all the points close to the boundary (for instance, all points with $x > 0.9$).  Then, all candidate models would be trained on $x \leq 0.9$, the best model selected using some criteria, and it would be finally evaluated on the validation set ($x > 0.9$) to understand the extrapolatory power of the model.  It is vital to carefully consider the purpose of the machine learning, and define the validation set appropriately.
+Carefully defining the validation set is very important.  For instance, if extrapolation away from the boundary of existing inputs is important (eg, if extrapolation to $x > 1$ is important in the case studied here) then the validation set would likely contain all the points close to the boundary (for instance, all points with $x > 0.9$).  Then, all candidate models would be trained on $x \leq 0.9$, the best model selected using some criteria, and it would be finally evaluated on the validation set (with $x > 0.9$) to understand the extrapolatory power of the model.  It is vital to carefully consider the purpose of the machine learning, and define the validation set appropriately.
 
 In this example, no validation set is used, because the purpose of this repository is simply to illustrate the impact of the neural network architecture on the data fit.
 
 ## Architectures
+
+The architectures considered here are shown in the figure below.  The neural networks have the following properties:
+
+- The first layer has width $W$ (a parameter set by the user) and a linear activation function.
+- The last layer has width 1 (because of the one output: either smooth, oscillating or noisy) and a linear activation function.  The first and last layers are linear layers so that without any of the other layers, they can mimic a linear regression (that is, they will fit a straight line).  With just the first and last layers, the number of trainable parameters in the neural network is $W(1 + 1) + (W + 1)$, where the $W(1 + 1)$ are the coefficients and intercepts of the first layer, and the $W$ represents the coefficients of the last layer, and the $1$ is the intercept of the last layer.  This is greater than the 2 parameters (1 linear regression) needed, so many of these parameters are redundant.
+- In between these, there are $D$ layers with "elu" activation functions.  (Other activation functions, such as "relu" could be used, but they lead to similar results in this case.)
+- In addition, if the dropout parameter $d$ is positive, there are also $D$ dropout layers to address over-fitting.
+
+![Architectures considered](architectures.png)
+
+## Results for $d=0$
+
+![W=1, d=0, D=1](result_1_0.0_1.png)
+
+
+
+
 
 
 
