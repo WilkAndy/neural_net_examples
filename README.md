@@ -73,7 +73,8 @@ The results displayed below demonstrate that:
 
 - when $D = 1$, the neural network mimics a linear regression, by design;
 - when increasing $W$ or $D$, more nonlinearities can be accommodated;
-- mostly, the gradient descent algorithm, converges to a reasonable result, but sometimes it appears to fail.
+- mostly, the gradient descent algorithm, converges to a reasonable result, but sometimes it appears to fail;
+- extrapolation to $x < 0$ or $x > 1$ is generally unpredictable.
 
 ![W=1, d=0, D=1](result_1_0.0_1.png)
 
