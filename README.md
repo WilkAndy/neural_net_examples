@@ -48,7 +48,7 @@ The architectures considered here are shown in the figure below.  The neural net
 
 - The first layer has width $W$ (a parameter set by the user) and a linear activation function.
 - The last layer has width 1 (because of the one output: either smooth, oscillating or noisy) and a linear activation function.  The first and last layers are linear layers so that without any of the other layers, they can mimic a linear regression (that is, they will fit a straight line).  With just the first and last layers, the number of trainable parameters in the neural network is $W(1 + 1) + (W + 1)$, where the $W(1 + 1)$ are the coefficients and intercepts of the first layer, and the $W$ represents the coefficients of the last layer, and the $1$ is the intercept of the last layer.  This is greater than the 2 parameters (1 linear regression) needed, so many of these parameters are redundant.
-- In between these, there are $D$ layers with "elu" activation functions.  (Other activation functions, such as "relu" could be used, but they lead to similar results in this case.)
+- In between these, there are $D - 1$ layers with "elu" activation functions.  (Other activation functions, such as "relu" could be used, but they lead to similar results in this case.)
 - In addition, if the dropout parameter $d$ is positive, there are also $D$ dropout layers to address over-fitting.
 
 ![Architectures considered](architectures.png)
@@ -57,8 +57,13 @@ The architectures considered here are shown in the figure below.  The neural net
 
 ![W=1, d=0, D=1](result_1_0.0_1.png)
 
+![W=16, d=0, D=1](result_16_0.0_1.png)
 
+![W=1, d=0, D=4](result_1_0.0_4.png)
 
+![W=4, d=0, D=4](result_4_0.0_4.png)
+
+![W=16, d=0, D=4](result_16_0.0_4.png)
 
 
 
