@@ -47,11 +47,11 @@ elif version == 9:
     d_o = 0.0
     depth = 12
 elif version == 10:
-    width = 16
-    d_o = 0.1
+    width = 64
+    d_o = 0.0
     depth = 12
 elif version == 11:
-    width = 16
+    width = 64
     d_o = 1E-3
     depth = 12
 
